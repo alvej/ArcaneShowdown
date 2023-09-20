@@ -6,6 +6,8 @@ public class Movement : MonoBehaviour
     public KeyCode leftKeybind = KeyCode.A;
     public KeyCode jumpKeybind = KeyCode.W;
     public KeyCode crouchKeybind = KeyCode.S;
+    
+    public float jumpPower = 300f;
 
     public bool onGround = false;
 
@@ -44,7 +46,7 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(jumpKeybind) && onGround)
         {
             onGround = false;
-            rigidbody.AddForce(new Vector2(0, 300));
+            rigidbody.AddForce(new Vector2(0, jumpPower));
         }
 
 
