@@ -6,10 +6,12 @@ public class Movement : MonoBehaviour
     public KeyCode leftKeybind = KeyCode.A;
     public KeyCode jumpKeybind = KeyCode.W;
     public KeyCode crouchKeybind = KeyCode.S;
-    
+
     public float jumpPower = 300f;
 
     public bool onGround = false;
+
+    private int onGroundCount = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -21,12 +23,27 @@ public class Movement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        onGround = true;
+        if (collision.collider.name.Equals("Ground"))
+        {
+            onGroundCount++;
+            onGround = true;
+        }
+
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        onGround = false;
+        if (collision.collider.name.Equals("Ground"))
+        {
+            if(onGroundCount > 0)
+            {
+                onGroundCount--;
+            }
+            if(onGroundCount == 0)
+            {
+                onGround = false;
+            }
+        }
     }
 
     // Update is called once per frame
